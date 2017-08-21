@@ -1,6 +1,10 @@
 import sys, pygame
 pygame.init()
 
+# Note: If this program does not detect keyboard input,
+# it is likely because you are on OS X and not using a
+# framework build of Python :(
+
 # Map legend
 # 0 - Air
 # 1 - Dirt
@@ -23,9 +27,10 @@ ballrect = ball.get_rect()
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-        print(event)
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            speed[0] = 1
+
+        if event.type == pygame.KEYDOWN:
+            print(event)
+#            if event.key == pygame.K_LEFT:
 
     # Movement
     ballrect = ballrect.move(speed)
