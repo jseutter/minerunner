@@ -21,7 +21,7 @@ black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("assets/banana.png")
+ball = pygame.image.load("assets/character 1.png")
 ballrect = ball.get_rect()
 
 
@@ -29,20 +29,22 @@ def main():
     global ballrect
     map = build_map()
     while 1:
+        time.sleep(0.01)
         speed = [0, 0]
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_LEFT]:
+            speed[0] = -1
+        elif keys[pygame.K_RIGHT]:
+            speed[0] = 1
+        elif keys[pygame.K_DOWN]:
+            speed[1] = 1
+        elif keys[pygame.K_UP]:
+            speed[1] = -1
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
 
-            if event.type == pygame.KEYDOWN:
-                print(event)
-                if event.key == pygame.K_LEFT:
-                    speed[0] = -1
-                elif event.key == pygame.K_RIGHT:
-                    speed[0] = 1
-                elif event.key == pygame.K_DOWN:
-                    speed[1] = -1
-                elif event.key == pygame.K_UP:
-                    speed[1] = 1
 
         # Movement
         ballrect = ballrect.move(speed)
@@ -50,8 +52,8 @@ def main():
         position[1] = position[1] + speed[1]
 
         # Check for falling (air below position)
-        if map[position[1] + 1][position[0]] == 0:
-            print('falling!')
+        # if map[position[1] + 1][position[0]] == 0:
+        #     print('falling!')
 
         if ballrect.left < 0 or ballrect.right > width:
             speed[0] = 0
